@@ -1,9 +1,10 @@
 // ===============================================================================
 // LOAD DATA
 // ===============================================================================
-
-const noteData = require("../db/db");
 const fs = require("fs");
+const db = "./db/db.json";
+
+let objNotes = fs.readFileSync(db);
 
 // ===============================================================================
 // ROUTING
@@ -17,7 +18,7 @@ module.exports = function (app) {
   // ---------------------------------------------------------------------------
 
   app.get("/api/notes", function (req, res) {
-    res.json(noteData);
+    res.send(JSON.parse(objNotes));
   });
 
   // API POST Requests
