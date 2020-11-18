@@ -2,15 +2,17 @@
 // LOAD DATA
 // ===============================================================================
 const fs = require("fs");
-const db = "./db/db.json";
-
-let objNotes = fs.readFileSync(db);
+// const db = require("../db/db.json")
 
 // ===============================================================================
 // ROUTING
 // ===============================================================================
 
 module.exports = function (app) {
+  const db = "./db/db.json";
+
+  let arrayNotesNew = [];
+
   // API GET Requests
   // Below code handles when users "visit" a page.
   // In each of the below cases when a user visits a link
@@ -18,7 +20,8 @@ module.exports = function (app) {
   // ---------------------------------------------------------------------------
 
   app.get("/api/notes", function (req, res) {
-    res.send(JSON.parse(objNotes));
+    let arrayNotesCurrent = JSON.parse(fs.readFileSync(db));
+    res.send(arrayNotesCurrent);
   });
 
   // API POST Requests
@@ -30,6 +33,27 @@ module.exports = function (app) {
   // ---------------------------------------------------------------------------
 
   app.post("/api/notes", function (req, res) {
+    let objNewNote = req.body;
+    // let arrayNotesCurrent = [];
+
+    let arrayNotesCurrent = JSON.parse(fs.readFileSync(db));
+    // let arrayNotesNew = arrayNotesCurrent.push(objNewNote);
+    //   if (err) throw err;
+
+    //   arrayNotesCurrent = data;
+    let arrayNotesNew = arrayNotesCurrent;
+
+    arrayNotesNew.push(objNewNote);
+
+    //   let newData = data.replace(/.*/, arrayNotesNew);
+
+    fs.writeFileSync(db, JSON.stringify(arrayNotesNew, null, "\t"));
+    // });
+
+    // console.log(objNewNote);
+    // console.log(arrayNotesCurrent);
+    console.log(arrayNotesNew);
+
     res.send("got a post request");
   });
 
