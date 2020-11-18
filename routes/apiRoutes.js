@@ -2,14 +2,15 @@
 // LOAD DATA
 // ===============================================================================
 const fs = require("fs");
-// const db = require("../db/db.json")
+const db = "./db/db.json";
+const arrayNotesCurrent = JSON.parse(fs.readFileSync(db));
 
 // ===============================================================================
 // ROUTING
 // ===============================================================================
 
 module.exports = function (app) {
-  const db = "./db/db.json";
+  // const db = "./db/db.json";
 
   let arrayNotesNew = [];
 
@@ -20,7 +21,7 @@ module.exports = function (app) {
   // ---------------------------------------------------------------------------
 
   app.get("/api/notes", function (req, res) {
-    let arrayNotesCurrent = JSON.parse(fs.readFileSync(db));
+    // let arrayNotesCurrent = JSON.parse(fs.readFileSync(db));
     res.send(arrayNotesCurrent);
   });
 
@@ -36,7 +37,7 @@ module.exports = function (app) {
     let objNewNote = req.body;
     // let arrayNotesCurrent = [];
 
-    let arrayNotesCurrent = JSON.parse(fs.readFileSync(db));
+    // let arrayNotesCurrent = JSON.parse(fs.readFileSync(db));
     let nextId = arrayNotesCurrent.length + 1;
     objNewNote.id = nextId;
 
@@ -64,9 +65,22 @@ module.exports = function (app) {
   // I added this below code so you could clear out the table while working with the functionality.
   // Don"t worry about it!
 
-  app.delete("/api/notes/?id", function (req, res) {
-    res.send("Got a Delete Request at /:id");
+  app.delete("/api/notes/:id", function (req, res) {
+    let newNotesArray = arrayNotesCurrent.filter(function (value, index, arr) {
+      return value.id != req.params.id;
+    });
 
-    // res.json({ ok: true });
+    fs.writeFileSync(db, JSON.stringify(newNotesArray, null, "\t"));
+    // res.send(
+    //   `Got a Delete Request at /${req.params.id} \n ${JSON.parse(
+    //     newNotesArray
+    //   )}`
+    // );
+    // res.send(newNotesArray);
+    console.log(arrayNotesCurrent);
+    console.log(newNotesArray);
+    console.log(req.params.id);
+    //res.send("received a delete request");
+    res.json({ ok: true });
   });
 };
