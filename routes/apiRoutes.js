@@ -37,6 +37,9 @@ module.exports = function (app) {
     // let arrayNotesCurrent = [];
 
     let arrayNotesCurrent = JSON.parse(fs.readFileSync(db));
+    let nextId = arrayNotesCurrent.length + 1;
+    objNewNote.id = nextId;
+
     // let arrayNotesNew = arrayNotesCurrent.push(objNewNote);
     //   if (err) throw err;
 
@@ -54,14 +57,14 @@ module.exports = function (app) {
     // console.log(arrayNotesCurrent);
     console.log(arrayNotesNew);
 
-    res.send("got a post request");
+    res.send(objNewNote);
   });
 
   // ---------------------------------------------------------------------------
   // I added this below code so you could clear out the table while working with the functionality.
   // Don"t worry about it!
 
-  app.delete("/api/notes/:id", function (req, res) {
+  app.delete("/api/notes/?id", function (req, res) {
     res.send("Got a Delete Request at /:id");
 
     // res.json({ ok: true });
