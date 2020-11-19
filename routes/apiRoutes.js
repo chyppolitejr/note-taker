@@ -25,7 +25,8 @@ module.exports = function (app) {
 
   app.post("/api/notes", function (req, res) {
     let objNewNote = req.body;
-    let nextId = arrayNotesCurrent.length + 1;
+    let lastId = arrayNotesCurrent.length - 1;
+    let nextId = arrayNotesCurrent[lastId].id + 1;
     objNewNote.id = nextId;
 
     let arrayNotesNew = arrayNotesCurrent;
