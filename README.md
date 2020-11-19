@@ -8,6 +8,8 @@ Express application to manage notes (add, delete and edit)
 
 ## Deployed Application
 
+[NOTE TAKER](https://shielded-coast-90680.herokuapp.com/)
+
 ## Installation
 
 Deploy Web hosting platform
@@ -24,4 +26,4 @@ Express Developers
 
 ## License
 
-Licensed under the [mit](LICENSE) license
+Licensed under the [MIT](LICENSE) license
