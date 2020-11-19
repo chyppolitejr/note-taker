@@ -5,13 +5,8 @@
 		"id": 1
 	},
 	{
-		"title": "Title 3",
-		"text": "text 3",
-		"id": 3
-	},
-	{
-		"title": "note 4",
-		"text": "note text 4",
-		"id": 4
+		"title": "Fix The App",
+		"text": "Fix the note taker application",
+		"id": 2
 	}
 ]

@@ -3,7 +3,6 @@
 // ===============================================================================
 const fs = require("fs");
 const db = "./db/db.json";
-let arrayNotesCurrent = JSON.parse(fs.readFileSync(db));
 
 // console.log(arrayNotesCurrent);
 // ===============================================================================
@@ -17,6 +16,7 @@ module.exports = function (app) {
   // ---------------------------------------------------------------------------
 
   app.get("/api/notes", function (req, res) {
+    let arrayNotesCurrent = JSON.parse(fs.readFileSync(db));
     res.send(arrayNotesCurrent);
   });
 
@@ -24,6 +24,7 @@ module.exports = function (app) {
   // ---------------------------------------------------------------------------
 
   app.post("/api/notes", function (req, res) {
+    let arrayNotesCurrent = JSON.parse(fs.readFileSync(db));
     let objNewNote = req.body;
     let lastId = arrayNotesCurrent.length - 1;
     let nextId = arrayNotesCurrent[lastId].id + 1;
@@ -42,19 +43,20 @@ module.exports = function (app) {
 
   // ---------------------------------------------------------------------------
   // API Delete Route
-
   app.delete("/api/notes/:id", function (req, res) {
+    let arrayNotesCurrent = JSON.parse(fs.readFileSync(db));
     let newNotesArray = arrayNotesCurrent.filter(function (value, index, arr) {
       return value.id != req.params.id;
     });
 
+    // write new array to file
     fs.writeFileSync(db, JSON.stringify(newNotesArray, null, "\t"));
 
-    console.log(arrayNotesCurrent);
-    console.log(newNotesArray);
-    console.log(req.params.id);
+    // console.log(arrayNotesCurrent);
+    // console.log(newNotesArray);
+    // console.log(req.params.id);
 
     //res.send("received a delete request");
-    res.json({ ok: true });
+    res.json(db);
   });
 };
