@@ -5,6 +5,7 @@ const fs = require("fs");
 const db = "./db/db.json";
 const arrayNotesCurrent = JSON.parse(fs.readFileSync(db));
 
+console.log(arrayNotesCurrent);
 // ===============================================================================
 // ROUTING
 // ===============================================================================

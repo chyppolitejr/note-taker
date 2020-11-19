@@ -15,17 +15,15 @@
       integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
   </head>
 
   <body>
     <nav class="navbar navbar-dark bg-dark">
       <a class="navbar-brand" href="/">Note Taker </a>
-      <!-- buttons to submit and edit -->
       <div class="icons">
-        <i class="fas fa-save text-light save-note mr-2 btn" id="save-btn"></i>
-        <i class="fas fa-pen text-light new-note btn mr-2" id="edit-btn"></i>
-        <i class="far fa-trash-alt text-light delete-note btn mr-2"></i>
+        <i class="fas fa-save text-light save-note"></i>
+        <i class="fas fa-pen text-light new-note"></i>
       </div>
     </nav>
     <div class="container-fluid">
@@ -47,65 +45,6 @@
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="/assets/js/index.js"></script>
-    <script type="text/javascript">
-      // save new note
-      $(".save-note").on("click", function (event) {
-        //event.preventDefault();
-
-        // Here we grab the form elements
-        var newNote = {
-          title: $(".note-title").val().trim(),
-          text: $(".note-textarea").val().trim(),
-        };
-
-        console.log(newNote);
-
-        $.post("/api/notes", newNote, function (data) {
-          // notify that note has been submitted
-          if (data) {
-            alert("New Note Submitted!!");
-          }
-
-          // Clear the form when submitting
-          $(".note-title").val("");
-          $(".note-textarea").val("");
-        });
-
-        // reloads the page to refresh the note list
-        location.reload();
-      });
-
-      // get notes
-      function runNotesQuery() {
-        // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
-        $.ajax({ url: "/api/notes", method: "GET" }).then(function (noteData) {
-          // Here we then log the noteData to console, where it will show up as an object.
-          console.log(noteData);
-          console.log("------------------------------------");
-
-          // Loop through and display each of the notes
-          for (var i = 0; i < noteData.length; i++) {
-            // Get a reference to the notesList element and populate it with notes
-            var noteList = $(".list-group");
-
-            // Then display the fields in the HTML (Note Title, Note Text, Note Id)
-            var listItem = $("<li class='list-group-item'>");
-
-            listItem.append(
-              $("<h2>").text("Note #" + (i + 1)),
-              $("<hr>"),
-              $("<h4>").text("Id: " + noteData[i].id),
-              $("<h4>").text("Title: " + noteData[i].title),
-              $("<h4>").text("Text: " + noteData[i].text)
-            );
-
-            noteList.append(listItem);
-          }
-        });
-      }
-
-      runNotesQuery();
-    </script>
+    <script src="./assets/js/index.js"></script>
   </body>
 </html>
