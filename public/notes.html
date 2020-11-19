@@ -30,8 +30,8 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-4 list-container">
-          <div class="card">
-            <ul class="list-group"></ul>
+          <div class="card mt-2">
+            <ul class="list-group list-group-flush mt-"></ul>
           </div>
         </div>
         <div class="col-8">
@@ -50,7 +50,7 @@
     <script type="text/javascript">
       // save new note
       $("#save-btn").on("click", function (event) {
-        event.preventDefault();
+        //event.preventDefault();
 
         // Here we grab the form elements
         var newNote = {
@@ -75,7 +75,9 @@
           $(".note-title").val("");
           $(".note-textarea").val("");
         });
-        runNotesQuery();
+
+        // reloads the page to refresh the note list
+        location.reload();
       });
 
       // get notes
@@ -92,14 +94,14 @@
             var noteList = $(".list-group");
 
             // Then display the fields in the HTML (Note Title, Note Text, Note Id)
-            var listItem = $("<li class='list-group-item mt-4'>");
+            var listItem = $("<li class='list-group-item'>");
 
             listItem.append(
               $("<h2>").text("Note #" + (i + 1)),
               $("<hr>"),
-              $("<h3>").text("Id: " + noteData[i].id),
-              $("<h3>").text("Title: " + noteData[i].title),
-              $("<h3>").text("Text: " + noteData[i].text)
+              $("<h4>").text("Id: " + noteData[i].id),
+              $("<h4>").text("Title: " + noteData[i].title),
+              $("<h4>").text("Text: " + noteData[i].text)
             );
 
             noteList.append(listItem);
