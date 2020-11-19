@@ -3,9 +3,9 @@
 // ===============================================================================
 const fs = require("fs");
 const db = "./db/db.json";
-const arrayNotesCurrent = JSON.parse(fs.readFileSync(db));
+let arrayNotesCurrent = JSON.parse(fs.readFileSync(db));
 
-console.log(arrayNotesCurrent);
+// console.log(arrayNotesCurrent);
 // ===============================================================================
 // ROUTING
 // ===============================================================================
@@ -17,7 +17,6 @@ module.exports = function (app) {
   // ---------------------------------------------------------------------------
 
   app.get("/api/notes", function (req, res) {
-    // let arrayNotesCurrent = JSON.parse(fs.readFileSync(db));
     res.send(arrayNotesCurrent);
   });
 
